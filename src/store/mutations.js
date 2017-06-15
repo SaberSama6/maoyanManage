@@ -1,0 +1,5 @@
+const SHOW_DATA="SHOW_DATA";        //用常量定义这些字符串，这样以后来修改这些字符串方便查找。
+const SHOW_STUDENT="SHOW_STUDENT";
+const SHOW_ONESTUDENT="SHOW_ONESTUDENT";
+
+export {SHOW_DATA,SHOW_STUDENT,SHOW_ONESTUDENT}
