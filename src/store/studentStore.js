@@ -27,6 +27,7 @@ const studentStore={
         [SHOW_SERCHDATA](state,searchdata){
             state.searchdata=searchdata;
         },
+
     }
 }
 
