@@ -8,7 +8,7 @@
           </div></el-col>
       <el-col :xs="6" :sm="6" :md="6" :lg="4">
           <div class="grid-content bg-purple-light">
-              <el-menu theme="dark" class="el-menu-demo" mode="horizontal" router="ture">
+              <el-menu theme="dark" class="el-menu-demo" mode="horizontal" :router="true">
                   <el-menu-item index="login">登录</el-menu-item>
                   <el-menu-item index="manage">管理</el-menu-item>
               </el-menu>
@@ -32,7 +32,7 @@ export default {
 <style lang="css">
   body{
     margin:0;
-    padding:0
+    padding:0;
   }
   .logoh1{
     margin:0;

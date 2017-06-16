@@ -2,7 +2,7 @@
     <el-row>
       <el-col :span="4">
           <div class="grid-content bg-purple">
-             <el-menu default-active="2" class="el-menu-vertical-demo" router="ture">
+             <el-menu default-active="2" class="el-menu-vertical-demo" :router="true">
               <el-menu-item index="user"><i class="el-icon-menu"></i>用户管理</el-menu-item>
               <el-menu-item index="filmManage"><i class="el-icon-menu"></i>电影管理</el-menu-item>
               <el-menu-item index="cinemaManage"><i class="el-icon-menu"></i>院线管理</el-menu-item>
@@ -17,7 +17,8 @@
       <el-col :span="20">
           <div class="grid-content bg-purple-light">
                 <router-view ></router-view>
-          </div></el-col>
+          </div>
+      </el-col>
     </el-row>
 </template>
 
