@@ -29,7 +29,11 @@ module.exports = {
     assetsPublicPath: '/',
     proxyTable: {
         '*' : {
+<<<<<<< HEAD
                 target: 'http://192.168.11.211:3000',
+=======
+                target: 'http:/127.0.0.1:3000',
+>>>>>>> 0eb0c70d23c5bab500e795cacd13187045f1d5a4
                 changeOrigin: true,
                 filter: function (pathname,req) {
                     return pathname.match('^(/admin)|(/cinemaInfo)|(/filmInfo)|(/hotMovie)|(/playMovie)|(/refer)|(/theatres)|(/upMovie)|(/user)');
