@@ -1,5 +1,5 @@
 <template lang="html">
-   <div v-bind:style='style'>
+   <div>
         资讯管理
     </div>  
 </template>

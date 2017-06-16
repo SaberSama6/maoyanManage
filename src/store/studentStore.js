@@ -1,9 +1,12 @@
-import {SHOW_DATA,SHOW_STUDENT,SHOW_ONESTUDENT} from "./mutations"; //引入字符串的变量。
+import {SHOW_DATA,SHOW_STUDENT,SHOW_ONESTUDENT,SHOW_PAGE,SHOW_EIT,SHOW_SERCHDATA} from "./mutations"; //引入字符串的变量。
 const studentStore={
     state:{
         data:{},
         students:{},
-		onestudent:{}
+		onestudent:{},
+        page:1,
+        dialogFormVisible:false,
+        searchdata:"",
     },
     mutations:{
         [SHOW_DATA](state,data){
@@ -14,6 +17,15 @@ const studentStore={
         },
 		[SHOW_ONESTUDENT](state,onestudent){
             state.onestudent=onestudent;
+        },
+        [SHOW_PAGE](state,page){
+            state.page=page;
+        },
+        [SHOW_EIT](state,dialogFormVisible){
+            state.dialogFormVisible=dialogFormVisible;
+        },
+        [SHOW_SERCHDATA](state,searchdata){
+            state.searchdata=searchdata;
         },
     }
 }

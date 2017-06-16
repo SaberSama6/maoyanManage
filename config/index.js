@@ -29,9 +29,9 @@ module.exports = {
     assetsPublicPath: '/',
     proxyTable: {
         '*' : {
-                target: 'http://192.168.155.1:3000',
+                target: 'http://192.168.11.211:3000',
                 changeOrigin: true,
-                filter: function (pathname, req) {
+                filter: function (pathname,req) {
                     return pathname.match('^(/admin)|(/cinemaInfo)|(/filmInfo)|(/hotMovie)|(/playMovie)|(/refer)|(/theatres)|(/upMovie)|(/user)');
                 }
         }
