@@ -32,7 +32,7 @@ export default {
 <style lang="css">
   body{
     margin:0;
-    padding:0
+    padding:0;
   }
   .logoh1{
     margin:0;

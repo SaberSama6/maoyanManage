@@ -17,7 +17,8 @@
       <el-col :span="20">
           <div class="grid-content bg-purple-light">
                 <router-view ></router-view>
-          </div></el-col>
+          </div>
+      </el-col>
     </el-row>
 </template>
 
