@@ -15,6 +15,7 @@ const studentStore={
 		[SHOW_ONESTUDENT](state,onestudent){
             state.onestudent=onestudent;
         },
+
     }
 }
 
