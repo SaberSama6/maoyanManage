@@ -10,7 +10,7 @@ const store = new Vuex.Store({      //定义一个store
     },
     modules:{                       //通过modules加载我的studentStore这样做到分类管理
         studentStore:studentStore,
-        theatreChain:theatreChain
+        theatreChain:theatreChain,
         hotMovie:hotMovie
     },
     mutations: {    //mutations变异，突变
