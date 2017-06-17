@@ -24,7 +24,7 @@ import {mapState} from "vuex";
 import store from "@/store";
 import {HOTMOIVE_SEARCH} from "@/store/mutations";
 export default{
-  props:["show"],
+  props:["addShowdata"],
 
     data() {
       return {
@@ -36,16 +36,15 @@ export default{
     },
      computed:{
       ...mapState({
-        hotmoive_data:state=>state.hotMovie.hotmoive_data,
+        hotmoive_add_data:state=>state.hotMovie.hotmoive_add_data,
 
       })
     },
 
     methods: {
       onSearch(){
+        console.log(123);
         let obj={};
-        console.log(this.formInline.mold);
-        console.log(this);
         let type=this.formInline.mold;
         let content=this.formInline.content;
         let searchdata={
@@ -56,11 +55,11 @@ export default{
            page:1,
            rows:5,
          }
-        store.commit(HOTMOIVE_SEARCH,searchdata)
+        store.commit(HOTMOIVE_SEARCH,searchdata);
          obj[type]=content;
-        this.show(obj);
-        console.log(this.formInline.user);
+        this.addShowdata(obj);
         console.log(this.formInline.mold);
+        console.log(this.formInline.content);
 
       }
     }

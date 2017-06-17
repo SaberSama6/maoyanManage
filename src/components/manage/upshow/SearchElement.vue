@@ -44,8 +44,7 @@ export default{
     methods: {
       onSearch(){
         let obj={};
-        console.log(this.formInline.mold);
-        console.log(this);
+ 
         let type=this.formInline.mold;
         let content=this.formInline.content;
         let searchdata={

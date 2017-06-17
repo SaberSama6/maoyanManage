@@ -163,7 +163,7 @@ export default{
   		//不能添加重复电影容错
   		ajax({
   			type:"get",
-  			url:"/hotMovie/find",
+  			url:"/playMovie/find",
   			data:{},
   			success:function(data){
   		 for(var i=0;i<addData.length;i++){
@@ -202,7 +202,7 @@ export default{
         }).then(() => {
     		ajax({
             type:"get",
-            url:"/hotMovie/add",
+            url:"/playMovie/add",
             data:obj,
             success:function(data){
             this.show(addobj);

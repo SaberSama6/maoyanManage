@@ -32,7 +32,7 @@ props:["show"],
         		}).then(() => {
         		$.ajax({
 				type:"get",
-				url:"/hotMovie/del",
+				url:"/upMovie/del",
 				data:{ids:_ids},
 				success:function(data){
 					this.show(obj);

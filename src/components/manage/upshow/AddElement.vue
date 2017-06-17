@@ -2,8 +2,9 @@
 <div class="add">
 <el-button type="primary" @click="nowpage"><i class="el-icon-plus"></i>增加</el-button>
 <el-dialog title="增加" :visible.sync="dialogFormVisible" size="large">
+<AddSearchElement :addShowdata="addShowdata"></AddSearchElement>
      <el-table
-	    	ref="multipleTable"
+	    ref="multipleTable"
 	    :data="hotmoive_add_data.rows"
 	 
 	     @selection-change="handleSelectionChange"
@@ -112,14 +113,17 @@
 </div>
 </template>
 <script>
+
 import{ajax} from "@/js/tools";
 import store from "@/store";
 import {mapState} from "vuex";
 import {HOTMOIVE_ADDDATA} from "@/store/mutations";
-import PageElement from "./PageElement";
+import AddSearchElement from "./AddSearchElement";
 export default{
 	props:["show"],
- components:{PageElement},
+ components:{
+ 	AddSearchElement
+ },
   data() {
       return {
         dialogFormVisible: false, 
@@ -137,7 +141,8 @@ export default{
     computed:{
 		...mapState({
 			hotmoive_add_data:state=>state.hotMovie.hotmoive_add_data,
-			hotmoive_data:state => state.hotMovie.hotmoive_data
+			hotmoive_data:state => state.hotMovie.hotmoive_data,
+			hotmoive_search:state=>state.hotMovie.hotmoive_search
 		})
 	},
   methods:{
@@ -149,7 +154,6 @@ export default{
   	  
   		console.log(this.adddata.length);
   		var addData = this.adddata;
-		
 		var obj; 
 		var cDATA;
 	    var count;
@@ -160,13 +164,13 @@ export default{
   			page:lastpage,
   			rows:5
   		}
-  		//不能添加重复电影容错
+  		//不能添加重复电影
   		ajax({
   			type:"get",
-  			url:"/hotMovie/find",
+  			url:"/upMovie/find",
   			data:{},
   			success:function(data){
-  		 for(var i=0;i<addData.length;i++){
+  		 	for(var i=0;i<addData.length;i++){
              count=false;
              
              for(var j=0;j<data.length;j++){
@@ -191,10 +195,10 @@ export default{
 
 
 
-  			}
+  		}
 
 
-  		})
+  	})
   	 this.$confirm('您将添加选中电影, 是否继续?', '提示', {
           confirmButtonText: '确定',
           cancelButtonText: '取消',
@@ -202,7 +206,7 @@ export default{
         }).then(() => {
     		ajax({
             type:"get",
-            url:"/hotMovie/add",
+            url:"/upMovie/add",
             data:obj,
             success:function(data){
             this.show(addobj);
@@ -224,7 +228,6 @@ export default{
           });          
         });
   	},
-
   	addShowdata(obj){
   		
   		this.dialogFormVisible = true;
@@ -239,7 +242,7 @@ export default{
         })
 
   	},
-  	  setCurrent(row) {
+  	 setCurrent(row) {
         this.$refs.singleTable.setCurrentRow(row);
       },
       // handleCurrentChange(val) {
@@ -247,20 +250,25 @@ export default{
       // 	console.log(this.adddata);
       //   // this.currentRow = val;
       // },
+      
        handleSelectionChange(val) {
        	this.adddata = val;
         	console.log(val);
         // this.multipleSelection = val;
       },
      nowpage(val){
+		let type=this.hotmoive_search.type;
+        let content=this.hotmoive_search.content;
+		var obj={
+			page:val,
+			rows:5
 
-			console.log(val);
-			var obj={
-				page:val,
-				rows:5
-
-			}
-			this.addShowdata(obj);
+		}
+	  if(type!=undefined){
+        obj[type]=content;
+        }
+		
+		this.addShowdata(obj);
 		}
 
   }

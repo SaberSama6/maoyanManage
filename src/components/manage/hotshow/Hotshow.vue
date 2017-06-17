@@ -5,7 +5,7 @@
  <el-row>
   <el-col :span="13">
   <div class="grid-content bg-purple-light">
-  	<SearchElement></SearchElement>
+  	<SearchElement :show="show"></SearchElement>
   </div>
   </el-col>
   <el-col :span="2">
@@ -14,7 +14,7 @@
   </div>
   </el-col>
   <el-col :span="2"><div class="grid-content bg-purple-light">
-  	<DeleteElement></DeleteElement>
+  	<DeleteElement :show="show"></DeleteElement>
   </div>
   </el-col>
 </el-row>
