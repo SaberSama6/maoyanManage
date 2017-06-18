@@ -1,8 +1,8 @@
 <template>	
 <div class="add">
-<el-button type="primary" @click="nowpage"><i class="el-icon-plus"></i>增加</el-button>
+<el-button type="primary" @click="dialogFormVisible=true"><i class="el-icon-plus"></i>增加</el-button>
 <el-dialog title="增加" :visible.sync="dialogFormVisible" size="large">
-<AddSearchElement :addShowdata="addShowdata"></AddSearchElement>
+<AddSearchElement :addShowdata="addShowdata" :delSearch="delSearch" ref="reset"></AddSearchElement>
      <el-table
 	    ref="multipleTable"
 	    :data="hotmoive_add_data.rows"
@@ -101,6 +101,7 @@
   <el-pagination
 	    layout="prev, pager, next"
 	    :total="hotmoive_add_data.total"
+	    :current-page.sync="hotmoive_add_data.curpage"
 	    @current-change="nowpage"
 	    :page-size="5">
 </el-pagination>
@@ -118,6 +119,7 @@ import{ajax} from "@/js/tools";
 import store from "@/store";
 import {mapState} from "vuex";
 import {HOTMOIVE_ADDDATA} from "@/store/mutations";
+import {HOTMOIVE_ADDSEARCH} from "@/store/mutations";
 import AddSearchElement from "./AddSearchElement";
 export default{
 	props:["show"],
@@ -131,18 +133,19 @@ export default{
        
     }
   },
-  // created(){
-  // 	var obj={
-  // 		page:1,
-  // 		rows:5
-  // 	};
-  // 	this.addShowdata(obj)
-  // },
+  created(){
+  	var obj={
+  		page:1,
+  		rows:5
+  	};
+  	this.dialogFormVisible = false;
+  	this.addShowdata(obj)
+  },
     computed:{
 		...mapState({
 			hotmoive_add_data:state=>state.hotMovie.hotmoive_add_data,
 			hotmoive_data:state => state.hotMovie.hotmoive_data,
-			hotmoive_search:state=>state.hotMovie.hotmoive_search
+			hotmoive_addsearch:state=>state.hotMovie.hotmoive_addsearch
 		})
 	},
   methods:{
@@ -152,14 +155,14 @@ export default{
   	},
   	ComfirData(){
   	  
-  		console.log(this.adddata.length);
+  		console.log(this.adddata);
   		var addData = this.adddata;
 		var obj; 
 		var cDATA;
 	    var count;
 	    var narr=[];
 	    var cName=[];
-  		var lastpage = this.hotmoive_data.total+1;
+  		var lastpage = this.hotmoive_data.maxpage;
   		var addobj = {
   			page:lastpage,
   			rows:5
@@ -187,13 +190,12 @@ export default{
              }
  
          }
+         console.log(narr);
 		cDATA  = JSON.stringify(narr);
 		obj = {
 				submitType:"addMore",
 				data:cDATA
 			}
-
-
 
   		}
 
@@ -211,6 +213,8 @@ export default{
             success:function(data){
             this.show(addobj);
             this.dialogFormVisible = false, 
+            this.delSearch();
+
             this.$message({
             type: 'success',
 
@@ -230,7 +234,7 @@ export default{
   	},
   	addShowdata(obj){
   		
-  		this.dialogFormVisible = true;
+  		// this.dialogFormVisible = true;
 		ajax({
             type:"get",
             url:"/filmInfo/find",
@@ -257,19 +261,30 @@ export default{
         // this.multipleSelection = val;
       },
      nowpage(val){
-		let type=this.hotmoive_search.type;
-        let content=this.hotmoive_search.content;
+		let type=this.hotmoive_addsearch.type;
+        let content=this.hotmoive_addsearch.content;
 		var obj={
 			page:val,
 			rows:5
-
 		}
 	  if(type!=undefined){
         obj[type]=content;
         }
 		
 		this.addShowdata(obj);
-		}
+		},
+		//清空查询
+		delSearch(){
+        var  obj={
+           page:1,
+           rows:5,
+         }
+         this.$refs.reset.$refs.resetForm.resetFields();
+         // console.log(this.$refs.reset.$refs.resetForm);
+   
+         store.commit(HOTMOIVE_ADDSEARCH,"");
+        this.addShowdata(obj);
+      }
 
   }
 }

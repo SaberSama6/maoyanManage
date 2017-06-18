@@ -29,7 +29,7 @@ export default{
 
 	methods:{
 		nowpage(val){
-		
+	
 		let type=this.hotmoive_search.type;
         let content=this.hotmoive_search.content;
 			var obj={

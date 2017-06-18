@@ -111,7 +111,7 @@ export default {
     data() {
       return {
       	deleteData:"",
-      	deleteArr:[]
+      	deleteArr:[],
 
       }
       
@@ -127,16 +127,16 @@ export default {
       setCurrent(row) {
         this.$refs.singleTable.setCurrentRow(row);
       },
-      handleCurrentChange(val) {
-      console.log(val);
-      	 this.deleteData = val._id;  
-      	 	console.log( this.deleteData);
-      	 	console.log(this.deleteArr);
-      	 	if(this.deleteArr = 0){
-			store.commit(HOTMOIVE_DELETE, this.deleteData);
-      	 	}
+   //    handleCurrentChange(val) {
+   //    console.log(val);
+   //    	 this.deleteData = val._id;  
+   //    	 	console.log( this.deleteData);
+   //    	 	console.log(this.deleteArr);
+   //    	 	if(this.deleteArr = 0){
+			// store.commit(HOTMOIVE_DELETE, this.deleteData);
+   //    	 	}
          
-      },
+   //    },
         handleSelectionChange(val) {
 
         //得到id数据
