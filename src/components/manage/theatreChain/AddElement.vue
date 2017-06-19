@@ -7,9 +7,9 @@
                 border
                 style="width: 100%" @selection-change="handleSelectionChange">
                 <el-table-column type="selection"></el-table-column>
-                <el-table-column prop="cName" label="电影名" show-overflow-tooltip="true"></el-table-column>
-                <el-table-column prop="eName" label="英文名"  show-overflow-tooltip="true"></el-table-column>
-                <el-table-column prop="type" label="类型"  show-overflow-tooltip="true"></el-table-column>
+                <el-table-column prop="cName" label="电影名" :show-overflow-tooltip="true"></el-table-column>
+                <el-table-column prop="eName" label="英文名"  :show-overflow-tooltip="true"></el-table-column>
+                <el-table-column prop="type" label="类型"  :show-overflow-tooltip="true"></el-table-column>
                 <el-table-column prop="area" label="地区"></el-table-column>
                 <el-table-column prop="duration" label="时间"></el-table-column>
               </el-table>
@@ -17,40 +17,41 @@
                 <el-button @click="close">取 消</el-button>
                 <el-button type="primary" @click="ok">确 定</el-button>
               </div>
+            <Moviepage :open="open"></Moviepage>
             </el-dialog>
 		</div>
 </template>
 
 <script>
-import {mapState} from "vuex";
-import {ajax} from "@/js/tools";  //下面用到了ajax 所以这里引了！ 注意引用的位置，别写到export default 里面去了
+import {ajax} from "@/js/tools"; 
+import $ from "jquery";
+import Moviepage from "@/components/manage/theatreChain/Moviepage";
+import store from "@/store/index.js"; 
+import {THEATRECHAIN_ALLMOVIE} from "@/store/mutations";
 export default {
       props:["show"],
+    components:{
+        Moviepage:Moviepage,
+    },
      data(){
          return{
             tableData:[],
             dialogFormVisible:false,
             multipleSelection: [],
-            theatresData:[]
          }
      },
-     computed:{          //在这里引用
-         ...mapState({
-            tableData:state => state.theatreChain.theatreChain_data
-        }) 
-    },
      methods: {
-            open(){
+            open(page=1){
                 this.dialogFormVisible=true;
                  ajax({
                   type:"get",
                   url:"/filmInfo/find",
                   data:{
-                      page:1,
+                      page:page,
                       rows:7
                   },
                   success:function(data){
-                      console.log(data);
+                        store.commit(THEATRECHAIN_ALLMOVIE,data); 
                       this.tableData=data.rows;
                  }.bind(this)
                });
@@ -59,24 +60,48 @@ export default {
               this.dialogFormVisible= false
           },
           ok(){
-              ajax({
+              $.ajax({
                   type:"get",
                   url:"/theatres/find",
                   data:{},
                   success:function(data){
-                      console.log(data);
                       let newArr=[];
                       for (let i=0;i<this.multipleSelection.length;i++){
-                          for (let j=0;j<data.rows.length;j++){
-                              if(this.multipleSelection[i].cName!=data.rows[j].cName){
-                                delete this.multipleSelection[i]._id
-                                  newArr.push(this.multipleSelection[i]);
-                                  return;
+                          var a=0;
+                          for (let j=0;j<data.length;j++){
+                              if(this.multipleSelection[i].cName==data[j].cName){
+                                    a++;
+                                  break;
                               }
-                              return;
                           }
+                          if(a==0){
+                                delete this.multipleSelection[i]._id;
+                                newArr.push(this.multipleSelection[i]);
+                            }
                       }
-                      console.log(newArr);
+                      if(newArr.length>0){
+                          $.ajax({
+                              type:"get",
+                              url:"/theatres/add",
+                              data:{
+                                  submitType:"addMore",
+                                  data:newArr
+                              },
+                              success:function(){
+                                  this.$message({
+                                      message: '增加电影成功',
+                                      type: 'success'
+                                });
+                                 this.dialogFormVisible= false 
+                                this.show()
+                              }.bind(this)
+                          })
+                      }else{
+                          this.$message({
+                              message: '你选择的电影已存在，或者没有选择！',
+                              type: 'warning'
+                            });
+                      }  
                  }.bind(this)
               })
           },
