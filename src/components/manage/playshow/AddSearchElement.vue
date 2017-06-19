@@ -65,18 +65,6 @@ export default{
         console.log(this.formInline.content);
 
       },
-      // delSearch(formname){
-      //   console.log(212);
-      //   this.$refs.resetForm.resetFields();
-        // this.$refs.reset.resetFields();
-        // console.log( this.$refs.reset);
-        // var  obj={
-        //    page:1,
-        //    rows:5,
-        //  }
-        //  store.commit(HOTMOIVE_ADDSEARCH,"");
-        // this.addShowdata(obj);
-      // }
 
     }
 
