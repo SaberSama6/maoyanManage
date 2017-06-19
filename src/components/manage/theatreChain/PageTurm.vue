@@ -14,7 +14,7 @@
 <script>
     import {mapState} from "vuex";
     import store from "@/store/index.js";
-    import {SHOW_PAGE} from "@/store/mutations";
+    import {THEATRECHAIN_PAGE} from "@/store/mutations";
     export default {
        data(){
            return{
@@ -24,18 +24,18 @@
        props:['show'],
        methods: {
           handleSizeChange(val) {
-            store.commit(SHOW_PAGE,val);
-            this.show(val);
+            store.commit(THEATRECHAIN_PAGE,val);
+            this.show();
           },
           handleCurrentChange(val) {
-            store.commit(SHOW_PAGE,val);
-            this.show(val);
+            store.commit(THEATRECHAIN_PAGE,val);
+            this.show();
           }
         },
       computed:{
         ...mapState({
-        data:state => state.studentStore.data,
-        page:state => state.studentStore.page
+             page:state => state.theatreChain.theatreChain_page,
+             data:state => state.theatreChain.theatreChain_data,
         })
       }
     };

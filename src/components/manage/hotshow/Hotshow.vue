@@ -1,11 +1,11 @@
 
 <template lang="html">
    <div>
-   <h1>热映电影</h1>
+   <h1>即将上映</h1>
  <el-row>
-  <el-col :span="13">
+  <el-col :span="15">
   <div class="grid-content bg-purple-light">
-  	<SearchElement></SearchElement>
+  	<SearchElement :show="show"></SearchElement>
   </div>
   </el-col>
   <el-col :span="2">
@@ -14,7 +14,7 @@
   </div>
   </el-col>
   <el-col :span="2"><div class="grid-content bg-purple-light">
-  	<DeleteElement></DeleteElement>
+  	<DeleteElement :show="show"></DeleteElement>
   </div>
   </el-col>
 </el-row>
@@ -58,9 +58,17 @@ export default{
 	            type:"get",
 	            url:"/hotMovie/find",
 	            data:obj,
+              cache: true,
 	            success:function(data){
 	 			// this.tableData=data;
-	 			console.log(data);
+	 			// console.log(data);
+        // console.log(window.localStorage);
+        // window.localStorage = data;
+        // var str = JSON.stringify(data)
+        //  localStorage.setItem("temp2", str);
+        //  console.log(window.localStorage);
+        //  var obj = JSON.parse(window.localStorage.temp2);
+        //  console.log(obj.rows)
 	 			store.commit(HOTMOIVE_SHOWDATA,data);
 	        	}.bind(this)
 	        })

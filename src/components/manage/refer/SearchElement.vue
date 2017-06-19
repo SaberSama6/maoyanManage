@@ -3,9 +3,9 @@
  <el-form :inline="true" :model="formInline" ref="resetForm" class="demo-form-inline">
   <el-form-item label="查询类型" prop="mold">
     <el-select v-model="formInline.mold"  placeholder="查询类型">
-      <el-option label="中文名" value="cName"></el-option>
-      <el-option label="英文名" value="eName"></el-option>
-      <el-option label="类型" value="type"></el-option>
+      <el-option label="电影名" value="cName"></el-option>
+      <el-option label="导演" value="direct"></el-option>
+      <el-option label="演员" value="actor"></el-option>
     </el-select>
   </el-form-item>
    <el-form-item  prop="content">
@@ -38,7 +38,7 @@ export default{
     },
      computed:{
       ...mapState({
-        hotmoive_data:state=>state.hotMovie.hotmoive_data,
+        refer_data:state=>state.hotMovie.refer_data,
 
       })
     },

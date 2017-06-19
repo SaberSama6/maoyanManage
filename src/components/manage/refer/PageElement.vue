@@ -2,9 +2,9 @@
 	<div class="block">
 	  <el-pagination
 	    layout="prev, pager, next"
-	    :total="hotmoive_data.total"
+	    :total="refer_data.total"
 	    @current-change="nowpage"
-	    :current-page.sync="hotmoive_data.curpage"
+	    :current-page.sync="refer_data.curpage"
 	    :page-size="5">
 	  </el-pagination>
 	</div>
@@ -22,7 +22,7 @@ export default{
 	},
 	computed:{
 		...mapState({
-			hotmoive_data:state=>state.hotMovie.hotmoive_data,
+			refer_data:state=>state.hotMovie.refer_data,
 			hotmoive_search:state=>state.hotMovie.hotmoive_search,
 		})
 	},
