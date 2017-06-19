@@ -4,36 +4,35 @@
 	</div>
 </template>
 <script>
-	// import {ajax} from "@/js/tools";
 	import $ from "jquery";
 	import {mapState} from "vuex";
 	export default{
 		props:["show"],
 		computed:{
 			...mapState({
-				delData:state => state.userStore.user_delData
+				delData:state => state.cinemaStore.cinema_delData
 			})
 		},
 		methods:{
 			delInfo(){
 				let ids = this.delData.map(function(val){
-					return val._id;
-				})
+					return val._id
+				});
 				if(ids.length > 0){
-					 this.$confirm('数据即将被删除，是否继续?', '提示', {
-				          cancelButtonText: '取消',
-				          confirmButtonText: '确定',
-				          type: 'warning'
-				        }).then(() => {
-				        	$.ajax({
-								url:"/user/del",
-								type:"get",
-								data:{ids:ids},
-								success:(data) => {
-									this.show();
-								}
-							});
-				          this.$message({
+					this.$confirm('数据即将被删除，是否继续?', '提示', {
+				        cancelButtonText: '取消',
+				        confirmButtonText: '确定',
+				        type: 'warning'
+				    }).then(() => {
+				        $.ajax({
+							url:"cinemaInfo/del",
+							type:"get",
+							data:{ids:ids},
+							success:(data) => {
+								this.show();
+							}
+						});
+				       	this.$message({
 				            type: 'success',
 				            message: '删除成功!'
 				          });

@@ -25,9 +25,9 @@
         }
     },
      props:["show"],
-    computed:{          
+    computed:{          //在这里引用
          ...mapState({
-            tableData:state => state.theatreChain.theatreChain_data.rows    //总的查找的数据
+            tableData:state => state.theatreChain.theatreChain_data.rows
         }) 
     },
     methods: {

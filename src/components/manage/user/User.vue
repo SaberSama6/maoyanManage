@@ -1,11 +1,14 @@
 <template lang="html">
 	<div>
+		<h2>用户管理</h2>
 		<el-row :gutter="20">
 		  <el-col :span="16"><div class="grid-content"><SearchInfo :show="show"></SearchInfo></div></el-col>
 		  <el-col :span="4"><div class="grid-content"><AddInfo :show="show"></AddInfo></div></el-col>
 		  <el-col :span="4"><div class="grid-content"><DelInfo :show="show"></DelInfo></div></el-col>
 		</el-row>
 		<TableInfo :show="show"></TableInfo>
+		<ChangeInfo :show='show'></ChangeInfo>
+		<Pagination :show="show"></Pagination>
 	</div>
 </div>
 </template>
@@ -16,12 +19,14 @@
 	import TableInfo from "@/components/manage/user/TableInfo";
 	import DelInfo from "@/components/manage/user/DelInfo";
 	import SearchInfo from "@/components/manage/user/SearchInfo";
+	import ChangeInfo from "@/components/manage/user/ChangeInfo";
+	import Pagination from "@/components/manage/user/Pagination";
 	import {USER_DATA} from "@/store/mutations";
 	import {mapState} from "vuex";
 	import store from "@/store";
 	export default{
 		components:{
-			AddInfo,TableInfo,DelInfo,SearchInfo
+			AddInfo,TableInfo,DelInfo,SearchInfo,ChangeInfo,Pagination
 		},
 		computed:{
 			...mapState({
@@ -47,7 +52,6 @@
 					type:"post",
 					data:data,
 					success:(data) => {
-						console.log(data);
 						store.commit(USER_DATA,data);  //保存用户数据
 					}
 				});
@@ -70,5 +74,9 @@
 	}
 	.bg-purple {
     background: #d3dce6;
+  }
+  h2{
+  	margin:0;
+  	padding:20px;
   }
 </style>
