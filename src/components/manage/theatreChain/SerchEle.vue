@@ -3,11 +3,11 @@
             <el-form :inline="true" :model="formInline" class="demo-form-inline">
               <el-form-item label="选择搜索类型">
                 <el-select v-model="formInline.region" placeholder="类型">
-                  <el-option label="名字" value="name"></el-option>
-                  <el-option label="年龄" value="age"></el-option>
-                  <el-option label="性别" value="gender"></el-option>
-                  <el-option label="电话" value="phone"></el-option>
-                  <el-option label="地址" value="address"></el-option>
+                  <el-option label="电影名" value="cName"></el-option>
+                  <el-option label="英文名" value="eName"></el-option>
+                  <el-option label="类型" value="type"></el-option>
+                  <el-option label="地区" value="area"></el-option>
+                  <el-option label="时间" value="duration"></el-option>
                 </el-select>
               </el-form-item>
               <el-form-item>
@@ -23,7 +23,7 @@
 <script>
     import {ajax} from "@/js/tools";
     import store from "@/store/index.js"; //引入store设置store的时候必须引入
-    import {SHOW_SERCHDATA,SHOW_PAGE} from "@/store/mutations";
+    import {THEATRECHAIN_PAGE,THEATRECHAIN_SERCH} from "@/store/mutations";
    export default {
     props:["show"],
     data() {
@@ -37,8 +37,8 @@
       onSubmit() {
         let data={};
           data[this.formInline.region]=this.formInline.value;
-          store.commit(SHOW_SERCHDATA,data);
-          store.commit(SHOW_PAGE,1);
+            store.commit(THEATRECHAIN_SERCH,data);
+            store.commit(THEATRECHAIN_PAGE,1);
           this.show();
       }
     }

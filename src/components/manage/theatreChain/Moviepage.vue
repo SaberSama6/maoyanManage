@@ -3,8 +3,7 @@
             <el-pagination
               @size-change="handleSizeChange"
               @current-change="handleCurrentChange"
-              :current-page.sync="page"
-              :page-size="5"
+              :page-size="7"
               layout="prev, pager, next, jumper"
               :total="data.total">
             </el-pagination>
@@ -18,24 +17,23 @@
     export default {
        data(){
            return{
-                
+                page:1
             }
        },
-       props:['show'],
+       props:['open'],
        methods: {
           handleSizeChange(val) {
-            store.commit(THEATRECHAIN_PAGE,val);
-            this.show();
+            this.page=val;
+            this.open(val);
           },
-          handleCurrentChange(val) {
-            store.commit(THEATRECHAIN_PAGE,val);
-            this.show();
+          handleCurrentChange(val) { 
+              this.page=val;
+            this.open(val);
           }
         },
       computed:{
         ...mapState({
-             page:state => state.theatreChain.theatreChain_page,
-             data:state => state.theatreChain.theatreChain_data,
+             data:state => state.theatreChain.theatreChain_allMovie,
         })
       }
     };
