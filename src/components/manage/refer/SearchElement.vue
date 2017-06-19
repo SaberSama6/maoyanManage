@@ -4,8 +4,8 @@
   <el-form-item label="查询类型" prop="mold">
     <el-select v-model="formInline.mold"  placeholder="查询类型">
       <el-option label="电影名" value="cName"></el-option>
-      <el-option label="导演" value="eName"></el-option>
-      <el-option label="演员" value="type"></el-option>
+      <el-option label="导演" value="direct"></el-option>
+      <el-option label="演员" value="actor"></el-option>
     </el-select>
   </el-form-item>
    <el-form-item  prop="content">
