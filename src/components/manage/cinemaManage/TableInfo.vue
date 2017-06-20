@@ -52,7 +52,7 @@
 	import {ajax} from "@/js/tools";
 	import store from "@/store";
 	import {mapState} from "vuex";
-	import {CINEMA_DELDATA} from "@/store/mutations";
+	import {CINEMA_DELDATA,CINEMA_CHANGEDATA,CINEMA_DIALOG} from "@/store/mutations";
 	export default{
 		props:["show"],
 		data(){
@@ -74,6 +74,21 @@
 			choose(val){
 				this.isChoose = val;
 				store.commit(CINEMA_DELDATA,this.isChoose);   //提交需要删除的数据【可能会有多条】
+			},
+			handleEdit(index,row){
+				console.log(index,row);
+				ajax({
+					url:"/cinemaInfo/find",
+					type:"get",
+					data:{
+						_id:row._id
+					},
+					success:(data) => {
+						console.log(data);
+						store.commit(CINEMA_CHANGEDATA,data);
+						store.commit(CINEMA_DIALOG,true);
+					}
+				});
 			}
 		}
 	}

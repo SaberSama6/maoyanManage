@@ -67,8 +67,10 @@
 
 <style lang="css" scoped>
     h1{
-        margin:0;
-        padding:60px 0;
+		color: rgba(32, 160, 255, 0.75);
+        margin:0 0 30px 0;
+        padding:30px 0 30px 10px;
+		box-shadow: 0 0 10px rgb(105, 187, 250);
     }
 </style>
 

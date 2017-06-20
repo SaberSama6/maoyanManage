@@ -101,7 +101,7 @@
 						          type: 'success'
 						        });
 						        this.dialogFormVisible = false;
-						        store.commit(USER_SEACHDATA,{});
+						        store.commit(USER_SEARCHDATA,{});
 						        this.show();
 							}
 						});

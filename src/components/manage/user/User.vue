@@ -1,10 +1,10 @@
 <template lang="html">
 	<div>
-		<h2>用户管理</h2>
-		<el-row :gutter="20">
-		  <el-col :span="16"><div class="grid-content"><SearchInfo :show="show"></SearchInfo></div></el-col>
-		  <el-col :span="4"><div class="grid-content"><AddInfo :show="show"></AddInfo></div></el-col>
-		  <el-col :span="4"><div class="grid-content"><DelInfo :show="show"></DelInfo></div></el-col>
+		<h1>用户管理</h1>
+		<el-row :gutter="0">
+		  <el-col :span="15"><div class="grid-content"><SearchInfo :show="show"></SearchInfo></div></el-col>
+		  <el-col :span="3"><div class="grid-content"><AddInfo :show="show"></AddInfo></div></el-col>
+		  <el-col :span="3"><div class="grid-content"><DelInfo :show="show"></DelInfo></div></el-col>
 		</el-row>
 		<TableInfo :show="show"></TableInfo>
 		<ChangeInfo :show='show'></ChangeInfo>
@@ -36,7 +36,6 @@
 			})
 		},
 		created:function(){
-	        console.log('【最大的组件】实例已经创建,还未渲染到模板');
 	        this.show();
 	    },
 		methods:{
@@ -60,23 +59,10 @@
 	}
 </script>
 <style lang="css" scoped>
-	.btnStyle{
-		background: blue;
-		border: 0;
-		color: #fff;
-		padding: 10px 20px;
-		font-size: 20px;
-		border-radius: 10px;
-	}
-	.grid-content {
-	    border-radius: 4px;
-	    min-height: 36px;
-	}
-	.bg-purple {
-    background: #d3dce6;
-  }
-  h2{
-  	margin:0;
-  	padding:20px;
-  }
+	 h1{
+		color: rgba(32, 160, 255, 0.75);
+        margin:0 0 30px 0;
+        padding:30px 0 30px 10px;
+		box-shadow: 0 0 10px rgb(105, 187, 250);
+    }
 </style>

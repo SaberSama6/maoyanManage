@@ -1,6 +1,6 @@
 <template>	
 <div class="add">
-<el-button type="primary" @click="dialogFormVisible=true"><i class="el-icon-plus"></i>增加</el-button>
+<el-button type="primary" @click="dialogFormVisible=true"><i class="el-icon-plus"></i> 增加</el-button>
 <el-dialog title="增加" :visible.sync="dialogFormVisible" size="large">
 <AddSearchElement :addShowdata="addShowdata" :delSearch="delSearch" ref="reset"></AddSearchElement>
      <el-table
@@ -117,9 +117,11 @@
 
 import{ajax} from "@/js/tools";
 import store from "@/store";
+import $ from "jquery";
 import {mapState} from "vuex";
 import {HOTMOIVE_ADDDATA} from "@/store/mutations";
 import {HOTMOIVE_ADDSEARCH} from "@/store/mutations";
+import {HOTMOIVE_SEARCH} from "@/store/mutations";
 import AddSearchElement from "./AddSearchElement";
 export default{
 	props:["show"],
@@ -154,11 +156,15 @@ export default{
 
   	},
   	ComfirData(){
-  	  
+  		if(this.adddata.length>0){
+  	  store.commit(HOTMOIVE_SEARCH,"");
   		console.log(this.adddata);
   		var addData = this.adddata;
 		var obj; 
 		var cDATA;
+		var removie="";
+		var movie ="";
+		var removiearr=[];
 	    var count;
 	    var narr=[];
 	    var cName=[];
@@ -168,10 +174,11 @@ export default{
   			rows:5
   		}
   		//不能添加重复电影
-  		ajax({
+  		$.ajax({
   			type:"get",
   			url:"/hotMovie/find",
   			data:{},
+  			async:false,
   			success:function(data){
   		 	for(var i=0;i<addData.length;i++){
              count=false;
@@ -179,33 +186,29 @@ export default{
              for(var j=0;j<data.length;j++){
                  
                  if(data[j].cName==addData[i].cName){
-                     count=true;
-                     
+                    count=true;
+                    removie +=addData[i].cName+','; 
+                    removiearr.push(addData[i].cName);
                  }
                  
              }
              if(count==false){
+             	 movie+=addData[i].cName;
                  narr.push(addData[i]);
 
              }
  
          }
-         console.log(narr);
 		cDATA  = JSON.stringify(narr);
 		obj = {
 				submitType:"addMore",
 				data:cDATA
 			}
-
-  		}
+  	}
 
 
   	})
-  	 this.$confirm('您将添加选中电影, 是否继续?', '提示', {
-          confirmButtonText: '确定',
-          cancelButtonText: '取消',
-          type: 'warning'
-        }).then(() => {
+  		console.log(removiearr.length);
     		ajax({
             type:"get",
             url:"/hotMovie/add",
@@ -218,20 +221,21 @@ export default{
             this.$message({
             type: 'success',
 
-            message: '添加成功!'
+            message: `添加成功`
 
           	});
  			console.log(data);
         	}.bind(this)
-       		 })
-       
-        }).catch(() => {
-          this.$message({
-            type: 'info',
-            message: '已取消添加'
-          });          
+       	})
+      
+    }else{
+	 	  this.$message({
+          message: '请至少选择一条数据！',
+          type: 'warning'
         });
-  	},
+		
+		}
+  },
   	addShowdata(obj){
   		
   		// this.dialogFormVisible = true;
@@ -290,8 +294,5 @@ export default{
 }
 </script>
 <style lang='css' scoped>
-.add{
-	margin-top:20px;
-}
 
 </style>

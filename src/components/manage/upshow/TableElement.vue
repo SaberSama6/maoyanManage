@@ -111,8 +111,6 @@ export default {
     data() {
       return {
       	deleteData:"",
-      	deleteArr:[],
-
       }
       
     },
@@ -141,13 +139,9 @@ export default {
 
         //得到id数据
         // th = [];  
-        var deletearr = []; 
-         for(let i=0;i<val.length;i++){
-          deletearr.push(val[i]._id); 
-          }
-          this.deleteArr = deletearr;
-          store.commit(HOTMOIVE_DELETE,this.deleteArr);
-        	console.log(this.deleteArr);
+         console.log(val);
+         store.commit(HOTMOIVE_DELETE,val);
+        	
        
       }
     }

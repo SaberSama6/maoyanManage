@@ -46,5 +46,8 @@ export default{
 }
 </script>
 <style lang='css' scoped>
-
+	.block{
+        display:inline-block;
+        margin:30px 0 0 40%;
+    }
 </style>

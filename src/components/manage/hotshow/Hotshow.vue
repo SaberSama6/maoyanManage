@@ -1,19 +1,19 @@
 
 <template lang="html">
    <div>
-   <h1>即将上映</h1>
+   <h1>热映电影</h1>
  <el-row>
   <el-col :span="15">
   <div class="grid-content bg-purple-light">
   	<SearchElement :show="show"></SearchElement>
   </div>
   </el-col>
-  <el-col :span="2">
+  <el-col :span="3">
   <div class="grid-content bg-purple-light">
   	<AddElement :show="show"></AddElement>
   </div>
   </el-col>
-  <el-col :span="2"><div class="grid-content bg-purple-light">
+  <el-col :span="3"><div class="grid-content bg-purple-light">
   	<DeleteElement :show="show"></DeleteElement>
   </div>
   </el-col>
@@ -35,6 +35,7 @@ import{ajax} from "@/js/tools";
 import store from "@/store";
 import {mapState} from "vuex";
 import {HOTMOIVE_SHOWDATA} from "@/store/mutations";
+import {HOTMOIVE_SEARCH} from "@/store/mutations";
 export default{
 	components:{
   	TableElement,SearchElement,
@@ -49,7 +50,9 @@ export default{
     		page:1,
     		rows:5
     	};
+      store.commit(HOTMOIVE_SEARCH,"");
     	this.show(obj);
+
     },
   methods:{
   	  	show:function(obj){
@@ -60,15 +63,6 @@ export default{
 	            data:obj,
               cache: true,
 	            success:function(data){
-	 			// this.tableData=data;
-	 			// console.log(data);
-        // console.log(window.localStorage);
-        // window.localStorage = data;
-        // var str = JSON.stringify(data)
-        //  localStorage.setItem("temp2", str);
-        //  console.log(window.localStorage);
-        //  var obj = JSON.parse(window.localStorage.temp2);
-        //  console.log(obj.rows)
 	 			store.commit(HOTMOIVE_SHOWDATA,data);
 	        	}.bind(this)
 	        })
@@ -79,7 +73,10 @@ export default{
 </script>
 
 <style lang="css" scoped>
-  .bg-purple-light {
-    background: #e5e9f2;
-  }
+  h1{
+		color: rgba(32, 160, 255, 0.75);
+        margin:0 0 30px 0;
+        padding:30px 0 30px 10px;
+		box-shadow: 0 0 10px rgb(105, 187, 250);
+    }
 </style>

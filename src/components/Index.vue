@@ -9,8 +9,7 @@
       <el-col :xs="6" :sm="6" :md="6" :lg="4">
           <div class="grid-content bg-purple-light">
               <el-menu theme="dark" class="el-menu-demo" mode="horizontal" :router="true">
-                  <el-menu-item index="login">登录</el-menu-item>
-                  <el-menu-item index="manage">管理</el-menu-item>
+                  <el-menu-item index="login" @click="clear">{{session}}</el-menu-item>
               </el-menu>
           </div>
      </el-col>
@@ -25,8 +24,38 @@
 </template>
 
 <script>
+		import {ajax} from "@/js/tools"
+		
 export default {
+	data:function(){
+		return{
+			session:""
+		}
+	},
+	updated:function(){
+		ajax({
+			type:"post",
+			url:"/getSession",
+			success:function(data){
+				this.session=data.name
+			}.bind(this)
+		});
+	},
+	methods:{
+		clear:function(){
+		ajax({
+			type:"post",
+			url:"/logout",
+			success:function(data){
+				this.session="";
+				this.$router.push("login");
+			}.bind(this)
+		});
+		}
+	}
+	
 }
+
 </script>
 
 <style lang="css">

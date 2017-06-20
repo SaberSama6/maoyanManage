@@ -19,13 +19,13 @@
 				<el-form-item label="院线名" :label-width="formLabelWidth" prop="cinema">
 				    <el-input v-model="form.cinema" auto-complete="off"></el-input>
 				</el-form-item>
-				<el-form-item label="地址" :label-width="formLabelWidth">
+				<el-form-item label="地址" :label-width="formLabelWidth" prop="address">
 				    <el-input v-model="form.address" auto-complete="off"></el-input>
 				</el-form-item>
-				<el-form-item label="手机" :label-width="formLabelWidth">
+				<el-form-item label="手机" :label-width="formLabelWidth" prop="phone_num">
 				    <el-input v-model="form.phone_num" auto-complete="off"></el-input>
 				</el-form-item>
-				<el-form-item label="官方地址" :label-width="formLabelWidth">
+				<el-form-item label="官方地址" :label-width="formLabelWidth" prop="official_website">
 				    <el-input v-model="form.official_website" auto-complete="off"></el-input>
 				</el-form-item>
 				<el-form-item
@@ -43,17 +43,10 @@
 				<el-form-item class="position">
 					<el-button type="primary" class="el-icon-plus" @click="addDomain"> 添加放映厅</el-button>
 				</el-form-item>
-				<!-- <el-form-item label="放映厅" :label-width="formLabelWidth" prop="room">
-				    <el-input v-model="form.room" auto-complete="off"></el-input>
-				</el-form-item>
-				<el-form-item label="座位" :label-width="formLabelWidth" prop="seat">
-				    <el-input v-model="form.seat" auto-complete="off"></el-input>
-				</el-form-item> -->
 				<el-form-item class="position">
 				    <el-button type="primary" @click="isOk('ruleForm')">添加数据</el-button>
 				    <el-button @click="resetForm('ruleForm')">重 置</el-button>
 				    <el-button @click="dialogFormVisible = false">取 消</el-button>
-				    <el-button @click="test">测试</el-button>
 			    </el-form-item>
 			</el-form>
 		</el-dialog>
@@ -72,14 +65,26 @@
 					address:"",
 					phone_num:"",
 					official_website:"",
-					auditoriumInfo:[]    //包含 放映厅、座位、时间
+					auditoriumInfo:[],    //包含 放映厅、座位、时间
 				},
 				ruleForm:{
-					cinema:""
+					cinema:"",
+					address:"",
+					phone_num:"",
+					official_website:""
 				},
 				rules:{
 					cinema:[
 						{required:true,message: '*院线名不能留空', trigger: 'blur'}
+					],
+					address:[
+						{required:true,message: '*地址不能留空', trigger: 'blur'}
+					],
+					phone_num:[
+						{required:true,message: '*手机号不能留空', trigger: 'blur'}
+					],
+					official_website:[
+						{required:true,message: '*官网不能留空', trigger: 'blur'}
 					]
 				},
 				dynamicValidateForm: {
@@ -107,7 +112,6 @@
 								this.show();
 							}
 						});
-						// alert("成功");
 					}else{
 						return false;
 					}
@@ -143,9 +147,9 @@
 		      		for(let i = 0;i < domain.seat.length;i++){
 		      			for(let j = 0;j < domain.seat[i].length;j++){
 		      				if(domain.seat[i][j] == 0){
-		      					this.imgColor.push("http://192.168.155.1:3000/images/write.png");
+		      					this.imgColor.push("http://192.168.14.65:3000/images/write.png");
 		      				}else if(domain.seat[i][j] == 1){
-		      					this.imgColor.push("http://192.168.155.1:3000/images/red.png");
+		      					this.imgColor.push("http://192.168.14.65:3000/images/red.png");
 		      				}
 		      			}
 		      		}
@@ -160,9 +164,6 @@
 		    },
 		    resetForm(formName){
 		    	this.$refs[formName].resetFields();
-		    },
-		    test(){
-		    	console.log(this.dynamicValidateForm.domains);
 		    }
 		}
 	}

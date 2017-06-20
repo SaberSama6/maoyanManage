@@ -1,8 +1,8 @@
 <template lang="html">
 	<div>
 		<el-form :inline="true" :model="formInline" class="demo-form-inline">
-			<el-form-item label="">
-			    <el-select v-model="formInline.type" placeholder="筛选类型">
+			<el-form-item label="查询类型">
+			    <el-select v-model="formInline.type" placeholder="查询类型">
 			    	<el-option label="电影中文名" value="cName"></el-option>
 			      	<el-option label="电影英文名" value="eName"></el-option>
 			      	<el-option label="类型" value="type"></el-option>
@@ -11,10 +11,13 @@
 			    </el-select>
 			</el-form-item>
 			<el-form-item label="">
-					<el-input v-model="formInline.value" placeholder="请输入"></el-input>
+					<el-input v-model="formInline.value" placeholder="查询内容"></el-input>
 			</el-form-item>
 			<el-form-item>
 		    	<el-button type="primary" @click="onSubmit">查询</el-button>
+		 	</el-form-item>
+		 	<el-form-item>
+		    	<el-button type="primary" @click="onClear">清空查询</el-button>
 		 	</el-form-item>
 		</el-form>
 	</div>
@@ -47,6 +50,13 @@
 					    type:'error'
 					});
 				}
+		    },
+		    onClear(){
+		    	this.formInline.type = "";
+		    	this.formInline.value = "";
+		    	store.commit(FILM_SEACHDATA,this.formInline);
+				// store.commit(FILM_PAGEDATA,1);
+				this.show();
 		    }
 		}
 	}

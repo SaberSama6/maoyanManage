@@ -85,8 +85,6 @@ export default{
 
 </script>
 <style lang='css' scoped>
-.search{
-	margin-top:20px;
-}
+
 
 </style>

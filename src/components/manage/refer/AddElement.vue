@@ -1,8 +1,8 @@
 <template>  
 <div class="add">
-<el-button type="primary" @click="dialogFormVisible =true"><i class="el-icon-plus"></i>添加</el-button>
-<el-dialog class="addform" title="修改" :visible.sync="dialogFormVisible">
-  <el-form :model="form" :rules="rules" ref="form" prop="form" class="demo-ruleForm">
+<el-button type="primary" @click="addData('form')"><i class="el-icon-plus"></i> 添加</el-button>
+<el-dialog class="addform" :before-close="closeForm" title="增加" size="tiny" :visible.sync="dialogFormVisible">
+  <el-form :model="form"  :rules="rules" ref="form" prop="form" class="demo-ruleForm">
     <el-form-item label="电影名" prop="cName" :label-width="formLabelWidth">
       <el-input v-model="form.cName" auto-complete="off" size="small"></el-input>
     </el-form-item>
@@ -10,7 +10,7 @@
       <el-input v-model="form.title" auto-complete="off" size="small"></el-input>
     </el-form-item>
     <el-form-item label="导演"  prop="direct" :label-width="formLabelWidth">
-      <el-input v-model="form.direct" auto-complete="off"></el-input>
+      <el-input v-model="form.direct"s auto-complete="off"></el-input>
     </el-form-item>
     <el-form-item label="电影详情"  prop="film_details" :label-width="formLabelWidth">
       <el-input v-model="form.film_details" auto-complete="off"></el-input>
@@ -27,9 +27,9 @@
 <el-upload
   class="upload-demo"
   action="/upload"
+  ref="upload"
   :on-preview="handlePreview"
   :on-remove="handleRemove"
-  :file-list="fileList"
   :on-success="success"
   list-type="picture">
   <el-button size="small" type="primary">点击上传</el-button>
@@ -37,7 +37,7 @@
 </el-upload>
   </el-form>
   <div slot="footer" class="dialog-footer">
-    <el-button @click="dialogFormVisible = false">取 消</el-button>
+    <el-button @click="closeForm">取 消</el-button>
     <el-button type="primary" @click="confirmAdd('form')">确 定</el-button>
   </div>
 </el-dialog>
@@ -47,8 +47,8 @@
 import{ajax} from "@/js/tools";
 import store from "@/store";
 import {mapState} from "vuex";
-import {HOTMOIVE_ADDDATA} from "@/store/mutations";
-import {HOTMOIVE_ADDSEARCH} from "@/store/mutations";
+import {HOTMOIVE_SEARCH} from "@/store/mutations";
+import {REFER_EDIT} from "@/store/mutations";
 export default{
   props:["show"],
   data(){
@@ -120,7 +120,7 @@ export default{
         var checklook = (rule, value, callback) => {
         if (value === '') {
           callback(new Error('请输入浏览量'));
-        } else if (/[0-9]/.test(this.form.look)) {
+        } else if (/^\d{1,}$/.test(this.form.look)) {
           callback();
         
         } else {
@@ -142,25 +142,25 @@ export default{
           },
       rules:{
           cName: [
-            { validator: checkcName, trigger: 'blur' }
+            { required:true,validator: checkcName, trigger: 'blur' }
           ],
           title: [
-            { validator: checktitle, trigger: 'blur' }
+            { required:true,validator: checktitle, trigger: 'blur' }
           ],
            direct: [
-            { validator: checkdirect, trigger: 'blur' }
+            { required:true,validator: checkdirect, trigger: 'blur' }
           ],
            film_details: [
-            { validator: checkfilm_details, trigger: 'blur' }
+            { required:true,validator: checkfilm_details, trigger: 'blur' }
           ],
             actor: [
-            { validator: checkactor, trigger: 'blur' }
+            {required:true, validator: checkactor, trigger: 'blur' }
           ],
             Hot_comments: [
-            { validator: checkHot_comments, trigger: 'blur' }
+            { required:true,validator: checkHot_comments, trigger: 'blur' }
           ],
              look: [
-            { validator: checklook, trigger: 'blur' }
+            { required:true,validator: checklook, trigger: 'blur' }
           ],
         },
 
@@ -191,10 +191,27 @@ export default{
       },
       success(file){
        var str = file.split('\\');
-        this.imgs.push(str[1]);
+      this.imgs.push(str[1]);
       console.log(JSON.stringify(this.imgs));
       },
+      addData(form){
+        console.log(this.fileList);
+        console.log( this.imgs);
+        
+          this.imgs =[];
+          this.dialogFormVisible = true;
+          console.log(this.$refs[form]);
+          this.$refs[form].resetFields();
+      },
+      closeForm(){
+        this.$refs.upload.clearFiles();
+        this.dialogFormVisible = false;
+      },
       confirmAdd(form){
+        console.log(this.$refs.upload);
+         console.log(this.$refs);
+        store.commit(HOTMOIVE_SEARCH,"");
+        this.fileList =[];
         var addobj = {
           page:this.refer_data.maxpage,
           rows:5
@@ -218,8 +235,11 @@ export default{
                     data:obj,
                     success:function(){
                     this.show(addobj);
+                     store.commit(REFER_EDIT,"");
                     this.dialogFormVisible = false, 
+
                     this.$refs.form.resetFields();
+                    this.$refs.upload.clearFiles();
                         this.$message({
                         type: 'success',
                         message: '添加成功!'
@@ -234,18 +254,11 @@ export default{
             return false;
           }
         });
-
-
         }
       }
   }
 
 </script>
 <style lang='css' scoped>
-.add{
-   margin-top: 20px;
-  }
-/*  .addform{
-    width: 800px;
-  }*/
+	
 </style>

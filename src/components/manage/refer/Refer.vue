@@ -8,17 +8,13 @@
   	<SearchElement :show="show"></SearchElement>
   </div>
   </el-col>
-  <el-col :span="2">
+  <el-col :span="3">
   <div class="grid-content bg-purple-light">
   	<AddElement :show="show"></AddElement>
   </div>
   </el-col>
   <el-col :span="3"><div class="grid-content bg-purple-light">
   	<DeleteElement :show="show"></DeleteElement>
-  </div>
-  </el-col>
-   <el-col :span="2"><div class="grid-content bg-purple-light">
-  	<!-- <EditElement :show="show"></EditElement> -->
   </div>
   </el-col>
 </el-row>
@@ -40,6 +36,7 @@ import{ajax} from "@/js/tools";
 import store from "@/store";
 // import {mapState} from "vuex";
 import {REFER_SHOWDATA} from "@/store/mutations";
+import {HOTMOIVE_SEARCH} from "@/store/mutations";
 export default{
 	components:{
   	TableElement,
@@ -57,6 +54,7 @@ export default{
     		page:1,
     		rows:5
     	};
+      store.commit(HOTMOIVE_SEARCH,"");
     	this.show(obj);
     },
   methods:{
@@ -78,7 +76,10 @@ export default{
 </script>
 
 <style lang="css" scoped>
-  .bg-purple-light {
-    background: #e5e9f2;
-  }
+  h1{
+		color: rgba(32, 160, 255, 0.75);
+        margin:0 0 30px 0;
+        padding:30px 0 30px 10px;
+		box-shadow: 0 0 10px rgb(105, 187, 250);
+    }
 </style>

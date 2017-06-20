@@ -4,7 +4,7 @@
 		 	@size-change="handleSizeChange"
       		@current-change="handleCurrentChange"
 		    layout="prev, pager, next"
-		    :page-size="10"
+		    :page-size="6"
 		    :current-page="page"
 		    :total="film_data.total">
 		  </el-pagination>
@@ -33,3 +33,9 @@
 		}
 	}
 </script>
+<style lang="css" scoped>
+    .block{
+        display:inline-block;
+        margin:30px 0 0 40%;
+    }
+</style>

@@ -18,14 +18,23 @@ props:["show"],
 	},
 	methods:{
 		deleteData(){
-			
+			if(this.hotmoive_delete.length>0){
+			var deleteData=this.hotmoive_delete;  
+			var deletearr = []; 
+			var deletestr = "";
+	         for(let i=0;i<deleteData.length;i++){
+	          deletearr.push(deleteData[i]._id); 
+	          deletestr += deleteData[i].cName+",";
+	          }
+
+ 			console.log(deletestr);
 			var obj = {
 				page:this.hotmoive_data.curpage,
 				rows:5
 				}
-			var _ids = JSON.stringify(this.hotmoive_delete);
+			var _ids = JSON.stringify(deletearr);
 			
-		   this.$confirm('您将删除选中电影, 是否继续?', '提示', {
+		   this.$confirm(`您将删除电影,,${deletestr},是否继续?`, '提示', {
 	          confirmButtonText: '确定',
 	          cancelButtonText: '取消',
 	          type: 'warning'
@@ -60,16 +69,20 @@ props:["show"],
 
 
 
+		}else{
+			 this.$message({
+                  message: '请至少选择一条数据！',
+                  type: 'warning'
+                });
 		}
-
-
 	}
+
+}
+
 
 }
 </script>
 <style lang='css' scoped>
-.delete{
-	margin-top:20px;
-}
+
 
 </style>

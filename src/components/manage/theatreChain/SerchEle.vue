@@ -1,8 +1,8 @@
 <template lang="html">
         <div>
             <el-form :inline="true" :model="formInline" class="demo-form-inline">
-              <el-form-item label="选择搜索类型">
-                <el-select v-model="formInline.region" placeholder="类型">
+              <el-form-item label="查询类型">
+                <el-select v-model="formInline.region" placeholder="查询类型">
                   <el-option label="电影名" value="cName"></el-option>
                   <el-option label="英文名" value="eName"></el-option>
                   <el-option label="类型" value="type"></el-option>
@@ -11,10 +11,13 @@
                 </el-select>
               </el-form-item>
               <el-form-item>
-                <el-input v-model="formInline.value" placeholder="请输入..."></el-input>
+                <el-input v-model="formInline.value" placeholder="查询内容"></el-input>
               </el-form-item>
               <el-form-item>
                 <el-button type="primary" @click="onSubmit">搜索</el-button>
+              </el-form-item>
+			  <el-form-item>
+                <el-button type="primary" @click="clear">清空搜索</el-button>
               </el-form-item>
             </el-form>
 		</div>
@@ -40,7 +43,13 @@
             store.commit(THEATRECHAIN_SERCH,data);
             store.commit(THEATRECHAIN_PAGE,1);
           this.show();
-      }
+      },
+	  clear(){
+		  let data={};
+		  store.commit(THEATRECHAIN_SERCH,data);
+		  store.commit(THEATRECHAIN_PAGE,1);
+		  this.show();
+	  }
     }
   }                 
 </script>

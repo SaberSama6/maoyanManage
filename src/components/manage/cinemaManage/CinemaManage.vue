@@ -4,13 +4,13 @@
     </div>   -->
     <div>
         <h1>院线管理管理</h1>
-        <el-row :gutter="20">
-		  <el-col :span="16"><div class="grid-content"><SearchInfo :show="show"></SearchInfo></div></el-col>
-		  <el-col :span="4"><div class="grid-content"><AddInfo :show="show"></AddInfo></div></el-col>
-		  <el-col :span="4"><div class="grid-content"><DelInfo :show="show"></DelInfo></div></el-col>
+        <el-row :gutter="0">
+		  <el-col :span="15"><div class="grid-content"><SearchInfo :show="show"></SearchInfo></div></el-col>
+		  <el-col :span="3"><div class="grid-content"><AddInfo :show="show"></AddInfo></div></el-col>
+		  <el-col :span="3"><div class="grid-content"><DelInfo :show="show"></DelInfo></div></el-col>
 		</el-row>
 		<TableInfo :show="show"></TableInfo>
-		<!-- <ChangeInfo :show="show"></ChangeInfo>-->
+		 <ChangeInfo :show="show"></ChangeInfo>
 		<Pagination :show="show"></Pagination> 
     </div>
 </template>
@@ -23,11 +23,12 @@
 	import TableInfo from "@/components/manage/cinemaManage/TableInfo";
 	import AddInfo from "@/components/manage/cinemaManage/AddInfo";
 	import DelInfo from "@/components/manage/cinemaManage/DelInfo";
+	import ChangeInfo from "@/components/manage/cinemaManage/ChangeInfo";
 	import Pagination from "@/components/manage/cinemaManage/Pagination";
 	import {CINEMA_DATA} from "@/store/mutations";
 	export default{
 		components:{
-			TableInfo,DelInfo,SearchInfo,AddInfo,Pagination
+			TableInfo,DelInfo,SearchInfo,AddInfo,Pagination,ChangeInfo
 		},
 		computed:{
 			...mapState({
@@ -59,6 +60,11 @@
 		}
 	}
 </script>
-<style lang="css">
-    
+<style lang="css" scoped>
+     h1{
+		color: rgba(32, 160, 255, 0.75);
+        margin:0 0 30px 0;
+        padding:30px 0 30px 10px;
+		box-shadow: 0 0 10px rgb(105, 187, 250);
+    }
 </style>

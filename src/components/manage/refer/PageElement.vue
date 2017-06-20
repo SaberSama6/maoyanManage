@@ -4,6 +4,7 @@
 	    layout="prev, pager, next"
 	    :total="refer_data.total"
 	    @current-change="nowpage"
+	    @size-change="handleSizeChange"
 	    :current-page.sync="refer_data.curpage"
 	    :page-size="5">
 	  </el-pagination>
@@ -28,8 +29,11 @@ export default{
 	},
 
 	methods:{
+		handleSizeChange(val){
+			console.log(val);
+		},
 		nowpage(val){
-	
+		console.log(val);
 		let type=this.hotmoive_search.type;
         let content=this.hotmoive_search.content;
 			var obj={
@@ -46,5 +50,8 @@ export default{
 }
 </script>
 <style lang='css' scoped>
-
+	.block{
+        display:inline-block;
+        margin:30px 0 0 40%;
+    }
 </style>

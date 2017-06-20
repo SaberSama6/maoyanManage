@@ -32,7 +32,7 @@ module.exports = {
                 target: 'http://127.0.0.1:3000',
                 changeOrigin: true,
                 filter: function (pathname,req) {
-                    return pathname.match('^(/upload)|(/admin)|(/cinemaInfo)|(/filmInfo)|(/hotMovie)|(/playMovie)|(/refer)|(/theatres)|(/upMovie)|(/user)');
+                    return pathname.match('^(/upload)|(/admin)|(/cinemaInfo)|(/filmInfo)|(/hotMovie)|(/playMovie)|(/refer)|(/theatres)|(/upMovie)|(/user)|(/getSession)|(/logout)');
                 }
         }
     },

@@ -158,16 +158,20 @@
 		        },
 		        rules:{
 		        	cName:[
-		        		{required:true,message: '*电影中文名不能留空', trigger: 'blur'}
+		        		{required:true,message: '*电影中文名不能留空', trigger: 'blur'},
+		        		{ pattern:/^[\u4E00-\u9FA5]+$/,message: '*请输入中文名',trigger: 'blur'}
 		        	],
 		        	eName:[
-		        		{required:true,message: '*电影英文名不能留空', trigger: 'blur'}
+		        		{required:true,message: '*电影英文名不能留空', trigger: 'blur'},
+		        		{ pattern:/^[A-Za-z]+$/,message: '*请输入英文名',trigger: 'blur'}
 		        	],
 		        	type:[
-		        		{required:true,message: '*类型不能留空', trigger: 'blur'}
+		        		{required:true,message: '*类型不能留空', trigger: 'blur'},
+		        		{ pattern:/^[\u4E00-\u9FA5]+$/,message: '*请输入中文',trigger:'blur'}
 		        	],
 		        	score:[
-		        		{required:true,message: '*分数不能留空', trigger: 'blur'}
+		        		{required:true,message: '*分数不能留空', trigger: 'blur'},
+		        		{ pattern:/^([1-9][0-9]*|0)(\.[0-9]+)?$/,message: '*请输入一个带小数的数',trigger: 'blur'}
 		        	],
 		        	actors:[
 		        		{required:true,message: '*演员不能留空', trigger: 'blur'}
@@ -184,7 +188,8 @@
 		        		{type: 'date',required:true,message: '*年代不能留空', trigger: 'blur'}
 		        	],
 		        	duration:[
-		        		{required:true,message: '*时长不能留空', trigger: 'blur'}
+		        		{required:true,message: '*时长不能留空', trigger: 'blur'},
+		        		{ pattern:/^\d{1,}$/, message: '*只能是纯数字', trigger: 'blur' }
 		        	],
 		        	release:[
 		        		{type: 'date',required:true,message: '*上映时间不能留空', trigger: 'blur'}

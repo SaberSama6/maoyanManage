@@ -1,6 +1,6 @@
 <template lang="html">
 	<div>
-		<el-dialog title="修改用户信息" size="small" :visible.sync="visible" :before-close = "closeDialog">
+		<el-dialog title="修改电影信息" size="small" :visible.sync="visible" :before-close = "closeDialog">
 			<el-form :model="itemInfo" ref="ruleForm" :rules="rules">
 		    	<el-form-item label="电影中文名" :label-width="formLabelWidth" prop="cName">
 			      <el-input v-model="itemInfo.cName" auto-complete="off"></el-input>
@@ -193,25 +193,25 @@
 				this.itemInfo.coverImg.forEach(function(ele){
 					this.fileList1.push({
 						name:"图片",
-						url:"http://192.168.155.1:3000/" + ele
+						url:"http://192.168.14.65:3000/" + ele
 					});
 				}.bind(this));
 				this.itemInfo.directorImg.forEach(function(ele){
 					this.fileList2.push({
 						name:"图片",
-						url:"http://192.168.155.1:3000/" + ele
+						url:"http://192.168.14.65:3000/" + ele
 					});
 				}.bind(this));
 				this.itemInfo.actorsImg.forEach(function(ele){
 					this.fileList3.push({
 						name:"图片",
-						url:"http://192.168.155.1:3000/" + ele
+						url:"http://192.168.14.65:3000/" + ele
 					});
 				}.bind(this));
 				this.itemInfo.infoImgs.forEach(function(ele){
 					this.fileList4.push({
 						name:"图片",
-						url:"http://192.168.155.1:3000/" + ele
+						url:"http://192.168.14.65:3000/" + ele
 					});
 				}.bind(this));
 			}
@@ -238,7 +238,7 @@
 						this.itemInfo.actorsImg = JSON.stringify(this.itemInfo.actorsImg);
 						this.itemInfo.infoImgs = JSON.stringify(this.itemInfo.infoImgs);
 						ajax({
-							url:"filmInfo/update",
+							url:"/filmInfo/update",
 							type:"post",
 							data: this.itemInfo,
 							success:(data) => {

@@ -9,8 +9,8 @@
                 <el-menu-item index="refer"><i class="el-icon-menu"></i>资讯管理</el-menu-item>
               <el-menu-item index="theatreChain"><i class="el-icon-menu"></i>院线匹配</el-menu-item>
               <el-menu-item index="hotshow"><i class="el-icon-menu"></i>热映管理</el-menu-item>
-              <el-menu-item index="playshow"><i class="el-icon-menu"></i>待映管理</el-menu-item>
-                <el-menu-item index="upshow"><i class="el-icon-menu"></i>热播管理</el-menu-item>
+              <el-menu-item index="playshow"><i class="el-icon-menu"></i>热播管理</el-menu-item>
+                <el-menu-item index="upshow"><i class="el-icon-menu"></i>待映管理</el-menu-item>
             </el-menu>
           </div>
       </el-col>

@@ -66,15 +66,15 @@ export default {
          }
      },
      methods: {
-            open(){   
-                if(this.selected._id){
+            open(){
+                if(this.videoHall.room){
                     this.dialogFormVisible=true;
                     this.tableData=this.selected;
                     this.videohall=this.videoHall.time;
             }else{
                 this.$message({
                   showClose: true,
-                  message: '请选择一条电影增加影院',
+                  message: '请选择放映厅,如果没有放映厅请增加放映厅',
                   type: 'warning'
                 });
             }
@@ -110,11 +110,9 @@ export default {
                   console.log(1);
                   if(this.videoHall.time&&this.videoHall.time.length>0){
                       obj["name"]=`${Number(this.videoHall.time[this.videoHall.time.length-1].name)+1}`;
-                      console.log(2);
                   }else{
                       obj["name"]="1";
-                      this.movie[0].cinema[videoIndex].auditoriumInfo[hallIndex]["time"]=[];
-                      console.log(-2);
+                     this.movie[0].cinema[videoIndex].auditoriumInfo[hallIndex]["time"]=[];
                   }  
                   str=this.ruleForm.begin+"-"+this.ruleForm.end;
                   obj["time"]=str;

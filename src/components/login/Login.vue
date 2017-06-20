@@ -6,8 +6,8 @@
           </div>
           <div class="text item">
              <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="100px" class="demo-ruleForm">
-                <el-form-item label="用户名" prop="username">
-                    <el-input v-model="ruleForm.username"></el-input>
+                <el-form-item label="用户名" prop="name">
+                    <el-input v-model="ruleForm.name"></el-input>
                 </el-form-item>
                 <el-form-item label="密码" prop="password">
                     <el-input v-model="ruleForm.password"></el-input>
@@ -28,11 +28,12 @@ import {ajax} from "@/js/tools"
     data() {
       return {
         ruleForm: {
-          username: '',
+		  addSession:1,
+          name: '',
           password: '',
         },
         rules: {
-          username: [
+          name: [
             { required: true, message: '请输入账号', trigger: 'blur' },
           ],
           password: [
@@ -47,11 +48,11 @@ import {ajax} from "@/js/tools"
           if (valid) {
             ajax({
                 type:"get",
-                url:"user/find",
+                url:"admin/find",
                 data:this.ruleForm,
                 success:function(data){
                     if(data.length>0){
-                        this.$router.push("student");
+                        this.$router.push("manage");
                     }else{
                          this.$alert('账号密码错误！', '错误', {
                           confirmButtonText: '确定',

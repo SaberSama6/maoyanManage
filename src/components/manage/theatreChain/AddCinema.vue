@@ -1,6 +1,6 @@
 <template lang="html">
         <div>
-			<el-button type="primary" class="el-icon-plus" @click="open">增加影院</el-button>
+			<el-button type="primary" class="el-icon-plus" @click="open"> 增加影院</el-button>
             <el-dialog title="增加影院" :visible.sync="dialogFormVisible"  size="full" :modal="false">
               <el-table
                 :data="tableData"
@@ -16,7 +16,7 @@
                 <el-button @click="close">取 消</el-button>
                 <el-button type="primary" @click="ok">确 定</el-button>
               </div>
-            <Moviepage :open="open"></Moviepage>
+            <AddCinemaPage :open="open"></AddCinemaPage>
             </el-dialog>
 		</div>
 </template>
@@ -24,14 +24,16 @@
 <script>
 import {ajax} from "@/js/tools"; 
 import $ from "jquery";
-import Moviepage from "@/components/manage/theatreChain/Moviepage";
+import AddCinemaPage from "@/components/manage/theatreChain/AddCinemaPage";
 import store from "@/store/index.js"; 
-import {THEATRECHAIN_ALLMOVIE} from "@/store/mutations";
+import {THEATRECHAIN_ADDCINEMADATA} from "@/store/mutations";
  import {mapState} from "vuex";
+var count=0;
+var newArr2;
 export default {
     props:["show"],
     components:{
-        Moviepage:Moviepage,
+        AddCinemaPage:AddCinemaPage,
     },
      computed:{          //在这里引用
          ...mapState({
@@ -58,6 +60,7 @@ export default {
                       },
                       success:function(data){
                           this.tableData=data.rows;
+						  store.commit(THEATRECHAIN_ADDCINEMADATA,data);
                      }.bind(this)
                    });
             },
@@ -65,8 +68,8 @@ export default {
               this.dialogFormVisible= false
           },
           ok(){
-              let newArr=[];
-              if(this.allCinema){
+              var newArr=[];
+              if(this.allCinema&&count==0){
                       for (let i=0;i<this.multipleSelection.length;i++){
                           var a=0;
                           for (let j=0;j<this.allCinema.length;j++){
@@ -78,22 +81,36 @@ export default {
                           if(a==0){
                                 newArr.push(this.multipleSelection[i]);
                             }
-                      }
+                      }         
               }else{
-                  for (let i=0;i<this.multipleSelection.length;i++){
+                  if(count>0){
+                       newArr=newArr2;
+                       for (let i=0;i<this.multipleSelection.length;i++){
+                          var a=0;
+                          for (let j=0;j<newArr2.length;j++){
+                              if(this.multipleSelection[i].cinema==newArr2[j].cinema){
+                                    a++;
+                                  break;
+                              }
+                          }
+                          if(a==0){
+                                newArr.push(this.multipleSelection[i]);
+                            }
+                      }
+                  }else{
+                      for (let i=0;i<this.multipleSelection.length;i++){
                         newArr.push(this.multipleSelection[i]); 
-                    }
+                        }
+                      newArr2=newArr;
+                      count++;
+                  }
               }
               if(newArr.length>0){
-                            console.log(newArr);
                             if(this.allCinema!=undefined){
-                                console.log(1);
-                                console.log(this.allCinema);
                                 this.sletcted.cinema= this.allCinema.concat(newArr);    
                             }else{
                                 this.sletcted.cinema=newArr;
                             }
-                            console.log(this.sletcted);
                          $.ajax({
                               type:"get",
                               url:"/theatres/update",
@@ -109,7 +126,7 @@ export default {
                           })
                       }else{
                           this.$message({
-                              message: '你选择的电影已存在，或者没有选择！',
+                              message: '你选择影院已存在，或者没有选择！',
                               type: 'warning'
                             });
                       }

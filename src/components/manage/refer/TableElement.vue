@@ -92,7 +92,7 @@ export default {
       }
       
     },
-
+   
     computed:{
 		...mapState({
 			refer_data:state=>state.hotMovie.refer_data,
@@ -104,16 +104,9 @@ export default {
         this.$refs.singleTable.setCurrentRow(row);
       },
         handleSelectionChange(val) {
-
-        //得到id数据
-        // th = [];  
-        var deletearr = []; 
-         for(let i=0;i<val.length;i++){
-          deletearr.push(val[i]._id); 
-          }
-          this.deleteArr = deletearr;
-          store.commit(HOTMOIVE_DELETE,this.deleteArr);
-        	console.log(this.deleteArr);
+       
+          store.commit(HOTMOIVE_DELETE,val);
+    
        
       },
       handleEdit(row) {

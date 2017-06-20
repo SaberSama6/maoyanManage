@@ -1,6 +1,6 @@
 <template lang="html">
         <div>
-			<el-button type="primary" class="el-icon-plus" @click="open">增加电影</el-button>
+			<el-button type="primary" class="el-icon-plus" @click="open"> 增加电影</el-button>
             <el-dialog title="增加电影" :visible.sync="dialogFormVisible">
               <el-table
                 :data="tableData"

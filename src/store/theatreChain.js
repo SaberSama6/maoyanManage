@@ -1,4 +1,4 @@
-import {THEATRECHAIN_DATA,THEATRECHAIN_DELMOVIE,THEATRECHAIN_SERCH,THEATRECHAIN_PAGE,THEATRECHAIN_ALLMOVIE,THEATRECHAIN_CHOOSEVIDEOHALL,THEATRECHAIN_CHOOSEVIDEO} from "./mutations"; //
+import {THEATRECHAIN_DATA,THEATRECHAIN_DELMOVIE,THEATRECHAIN_SERCH,THEATRECHAIN_PAGE,THEATRECHAIN_ALLMOVIE,THEATRECHAIN_CHOOSEVIDEOHALL,THEATRECHAIN_CHOOSEVIDEO,THEATRECHAIN_WHICHDATA,THEATRECHAIN_ADDCINEMADATA} from "./mutations"; //
 const theatreChain={
     state:{
         theatreChain_data:{},
@@ -8,6 +8,8 @@ const theatreChain={
         theatreChain_allMovie:{},
         theatreChain_choosevideohall:{},
         theatreChain_choosevideo:{},
+		theatreChain_whichdata:{},
+		theatreChain_addcinemadata:{},
     },
     mutations:{
         [THEATRECHAIN_DATA](state,data){
@@ -30,6 +32,12 @@ const theatreChain={
         },
         [THEATRECHAIN_CHOOSEVIDEO](state,video){
             state.theatreChain_choosevideo=video;
+        },
+		[THEATRECHAIN_WHICHDATA](state,data){
+            state.theatreChain_whichdata=data;
+        },
+		[THEATRECHAIN_ADDCINEMADATA](state,data){
+            state.theatreChain_addcinemadata=data;
         },
     }
 }
